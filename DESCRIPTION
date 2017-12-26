@@ -1,18 +1,20 @@
 Package: AppleHealthAnalysis
 Type: Package
-Title: Analyses Exported Apple Health XML Data
-Version: 0.1.0
-Author: Deepankar Datta
-Maintainer: Deepankar Datta <deepankardatta@nhs.net>
+Title: Analysis of Exported Apple Health XML Data
+Version: 0.1.1
+Depends: R (>= 3.4.0)
+Authors@R: person("Deepankar", "Datta", email = "deepankardatta@nhs.net",
+                  role = c("aut", "cre"))
 Description: Package to import Apple Health XML data into R for further analysis
-    Use four spaces when indenting paragraphs within the Description.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
+URL: https://github.com/deepankardatta/blandr/
+BugReports: https://github.com/deepankardatta/blandr/issues
 RoxygenNote: 6.0.1
-Suggests: testthat
+Imports: dplyr, lubridate, openxlsx, purrr, xml2
+Suggests: rmarkdown, testthat
 Collate: 
     'ah_import_xml.r'
     'ah_convert_xml_to_xlsx.r'
     'ah_data_select.r'
-    'ah_plot.r'

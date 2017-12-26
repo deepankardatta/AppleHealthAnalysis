@@ -5,7 +5,6 @@
 #' @author Deepankar Datta <deepankardatta@nhs.net>
 #'
 #' @import xml2
-#' @import dplyr
 #' @import purrr
 #' @importFrom lubridate ymd_hms
 #' @importFrom lubridate wday
