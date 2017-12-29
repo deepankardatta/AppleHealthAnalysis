@@ -1,7 +1,7 @@
 Package: AppleHealthAnalysis
 Type: Package
 Title: Analysis of Exported Apple Health XML Data
-Version: 0.1.1
+Version: 0.1.2
 Depends: R (>= 3.4.0)
 Authors@R: person("Deepankar", "Datta", email = "deepankardatta@nhs.net",
                   role = c("aut", "cre"))
@@ -12,9 +12,10 @@ LazyData: true
 URL: https://github.com/deepankardatta/AppleHealthAnalysis/
 BugReports: https://github.com/deepankardatta/AppleHealthAnalysis/issues
 RoxygenNote: 6.0.1
-Imports: dplyr, lubridate, openxlsx, purrr, xml2
+Imports: dplyr, lubridate, openxlsx, purrr, xml2, ggplot2, shiny
 Suggests: rmarkdown, testthat
 Collate: 
     'ah_import_xml.r'
     'ah_convert_xml_to_xlsx.r'
     'ah_data_select.r'
+    'ah_shiny.r'
