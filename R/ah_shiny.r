@@ -5,6 +5,7 @@ library(dplyr)
 
 ah_shiny <- function(health_data) {
 
+  # Makes a list of the type factors, aka the health data variables measured
   ah_type_list <- levels(health_data$type)
 
   require(shiny)
@@ -16,6 +17,11 @@ ah_shiny <- function(health_data) {
         sidebarPanel(
 
           #dateRangeInput start
+
+          # A decision was made not to make this a reactice element (yet!)
+          # This is a design decision: it seems more useful to have the date
+          # ranges set for global data, than re-do the date ranges for each
+          # individual health variable when selected
 
           dateRangeInput( inputId = "date_range",
                           label = "Date range: ",
@@ -31,21 +37,22 @@ ah_shiny <- function(health_data) {
 
           # END
 
-          #se
+          #Health data variable selection drop box
 
           selectInput( inputId = "health_variable",
                        label = "Choose a health variable to display",
                        choices = ah_type_list, # End of choices
-                       selected = NULL,
+                       selected = "HeartRate",
                        multiple = FALSE,
                        selectize = TRUE)
 
           #END
 
-
+          # Could also consider putting a file input and export box here
 
           ),
-        mainPanel(
+
+        mainPanel( # Start of Shiny dashboard output
           textOutput("selected_var"),
           plotOutput("ah_plot")
           )
@@ -53,24 +60,26 @@ ah_shiny <- function(health_data) {
     ),
     server = function(input, output) {
 
+      # Test as per Shiny examples
       output$selected_var <- renderText({
-        paste("You have selected", input$health_variable)
+        paste("You have viewing a plot of ", input$health_variable,
+              " from ", input$date_range[1], " to ", input$date_range[2])
       })
 
+      # Use the Shiny reactive function to filter to the variable the user wants
       data_to_plot <- reactive({
 
         health_data %>% filter( type == input$health_variable )
 
       })
 
+      # The plot generation output
       output$ah_plot <- renderPlot({
-        g <- ggplot(data_to_plot(), aes(x=date, y=value)) +
+        ah_plot <- ggplot(data_to_plot(), aes(x=date, y=value)) +
           geom_line() +
           theme_bw() +
-          labs(x="Date",
-               y=input$health_variable,
-               title=paste0("From ", input$date_range[1], " to ", input$date_range[2]))
-        g
+          labs(x="Date", y=input$health_variable)
+        ah_plot
       })
     }
   )
