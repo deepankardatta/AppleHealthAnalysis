@@ -56,6 +56,9 @@ ah_import_xml <- function( filename ) {
   health_data$type <- gsub('HKQuantityTypeIdentifier', "" , health_data$type )
   health_data$type <- gsub('HKCategoryTypeIdentifier', "" , health_data$type )
 
+  # Make the type identifier to a factor - this makes it easier for me down the line to sort it
+  health_data$type <- as.factor(health_data$type)
+
   # Make endDate in a date time variable POSIXct using lubridate with London time zone
   health_data$endDate <- ymd_hms( health_data$endDate )
 
