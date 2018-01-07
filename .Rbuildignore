@@ -1,6 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^unused$
+^development$
 ^tests$
 ^data-raw$
 ^git-docs$
