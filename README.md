@@ -24,6 +24,18 @@ As I was developing the package, I noted the following memory use when stepping 
 
 So the main memory requirements are on XML extraction. I think dplyr's piping system is the most efficient way of getting the data out of the XML file, but suggestions on how to improve resource requirements would be gratefully appreciated.
 
+## How to use
+
+Download the GitHub repository and open the R Studio project. Then do the following:
+
+* Get some Apple Health data an put the export.xml file into your directory
+* library(devtools)
+* install_github("deepankardatta/AppleHealthAnalysis")
+* library(AppleHealthAnalysis)
+* health_data <- ah_import_xml("export.xml")
+* ah_shiny(health_data)
+* Explore
+
 ## Future developments
 
 * Get feedback on the code efficiency
@@ -31,8 +43,10 @@ So the main memory requirements are on XML extraction. I think dplyr's piping sy
 * If data parsing takes a long time think about a progress bar
 * Get some more built in reports
 * Work out if there is anymore useful data in the exported XML files to use
+* Shiny dashboard
+* Data comparisons
 
-## Things that I read to help make this package
+## Things that I have read to help make this package
 
 I had a look at a few things to help make this package
 
