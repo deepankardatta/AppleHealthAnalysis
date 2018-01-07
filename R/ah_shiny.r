@@ -90,13 +90,12 @@ ah_shiny <- function(health_data) {
 
       # The plot generation output
       output$ah_plot <- renderPlot({
-        ah_plot <- ggplot(data_to_plot(), aes(x=endDate, y=value)) +
-          geom_line() +
-          theme_bw() +
+        ah_plot <- ggplot(data_to_plot(), aes(x=date, y=value)) +
+          geom_point() +
+          theme_grey() +
           labs(x="Date", y=input$health_variable)
         ah_plot
       })
     }
   )
 }
-

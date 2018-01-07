@@ -50,6 +50,7 @@ ah_import_xml <- function( filename ) {
   health_data <- health_data[ c( "type" , "value" , "unit" , "endDate"  ) ]
 
   # Make the 'value' variable numeric
+  # (Explore why I have written the function this way later)
   health_data$value <- as.numeric(as.character(health_data$value))
 
   # Clean up the type identifier so it is easier to parse
@@ -57,17 +58,19 @@ ah_import_xml <- function( filename ) {
   health_data$type <- gsub('HKCategoryTypeIdentifier', "" , health_data$type )
 
   # Make the type identifier to a factor - this makes it easier for me down the line to sort it
-  health_data$type <- as.factor(health_data$type)
+  health_data$type       <- health_data$type %>% as.factor()
 
-  # Make endDate in a date time variable POSIXct using lubridate with London time zone
-  health_data$endDate <- ymd_hms( health_data$endDate )
+  # Use lubridate package to format the dates
+  health_data$endDate    <- health_data$endDate %>% ymd_hms()
 
-  # add in columns for: month, year, date, day of week, hour
-  health_data$month     <- format( health_data$endDate,"%m" )
-  health_data$year      <- format( health_data$endDate,"%Y" )
-  health_data$date      <- format( health_data$endDate,"%Y-%m-%d" )
-  health_data$dayofweek <- wday( health_data$endDate, label=TRUE, abbr=FALSE )
-  health_data$hour      <- format( health_data$endDate,"%H" )
+  # add in columns for dates and times
+  health_data$year       <- health_data$endDate %>% year() %>% as.factor()
+  health_data$month      <- health_data$endDate %>% month() %>% as.factor()
+  health_data$month_name <- health_data$endDate %>% month(label = TRUE, abbr = FALSE ) %>% as.factor()
+  health_data$day        <- health_data$endDate %>% mday() %>% as.factor()
+  health_data$day_name   <- health_data$endDate %>% wday( label=TRUE, abbr=FALSE ) %>% as.factor()
+  health_data$date       <- health_data$endDate %>% as_date()
+  health_data$hour       <- health_data$endDate %>% hour() %>% as.factor()
 
   return( health_data )
 
