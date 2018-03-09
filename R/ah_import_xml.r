@@ -6,8 +6,7 @@
 #'
 #' @import xml2
 #' @import purrr
-#' @importFrom lubridate ymd_hms
-#' @importFrom lubridate wday
+#' @import lubridate
 #'
 #' @param filename The name of a XML file containing exported Apple Health data, written in inverted commas
 #'
@@ -71,6 +70,7 @@ ah_import_xml <- function( filename ) {
   health_data$day_name   <- health_data$endDate %>% wday( label=TRUE, abbr=FALSE ) %>% as.factor()
   health_data$date       <- health_data$endDate %>% as_date()
   health_data$hour       <- health_data$endDate %>% hour() %>% as.factor()
+  health_data$minutes    <- health_data$endDate %>% minute() %>% as.factor()
 
   return( health_data )
 
