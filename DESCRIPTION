@@ -2,7 +2,7 @@ Package: AppleHealthAnalysis
 Type: Package
 Title: Analysis of Exported Apple Health XML Data
 Version: 0.1.2
-Depends: R (>= 3.4.0)
+Depends: R (>= 3.3.0)
 Authors@R: person("Deepankar", "Datta", email = "deepankardatta@nhs.net",
                   role = c("aut", "cre"))
 Description: Package to import Apple Health XML data into R for further analysis.
