@@ -8,7 +8,7 @@
 #' @import purrr
 #' @import lubridate
 #'
-#' @param filename The name of a XML file containing exported Apple Health data, written in inverted commas
+#' @param import_filename The name of a XML file containing exported Apple Health data, written in inverted commas
 #'
 #' @return health_data A data frame containing the extracted health data
 #'
@@ -25,13 +25,13 @@
 #'
 #' @export
 
-ah_import_xml <- function( filename ) {
+ah_import_xml <- function( import_filename ) {
 
-  if ( is.null(filename) )
-    stop("You must specify an input filename!")
+  if ( is.null(import_filename) )
+    stop("You must specify an input filename.")
 
   # Load exported apple health XML file
-  xml_health_data <- read_xml( filename )
+  xml_health_data <- read_xml( import_filename )
 
   # Extracts the health records, selects the 'Record' elements
   # And then transforms into a data frame using the 'purrr' library

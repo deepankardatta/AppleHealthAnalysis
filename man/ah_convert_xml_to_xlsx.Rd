@@ -4,17 +4,17 @@
 \alias{ah_convert_xml_to_xlsx}
 \title{"ah_convert_xml_to_xlsx": Converts Apple Health data from XML to XLSX format}
 \usage{
-ah_convert_xml_to_xlsx(filename, export_filename)
+ah_convert_xml_to_xlsx(import_filename, export_filename)
 }
 \arguments{
-\item{filename}{The name of a XML file containing exported Apple Health data, written in inverted commas}
-
-\item{export_filename}{A name for saving the file, written in inverted commas}
+\item{import_filename}{The name of a XML file containing exported Apple Health data, written in inverted commas}
 }
 \description{
 Converts Apple Health data from XML to XLSX format in one step.
 
 You can easily do this manually but wrote it to save time for people.
+
+This imports parameters from two other functions. This function does nothing with the health_data parameter though.
 }
 \examples{
 # Loads the data

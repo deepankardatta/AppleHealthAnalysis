@@ -4,10 +4,10 @@
 \alias{ah_import_xml}
 \title{"ah_import_xml": Import Apple Health data from the exported XML file}
 \usage{
-ah_import_xml(filename)
+ah_import_xml(import_filename)
 }
 \arguments{
-\item{filename}{The name of a XML file containing exported Apple Health data, written in inverted commas}
+\item{import_filename}{The name of a XML file containing exported Apple Health data, written in inverted commas}
 }
 \value{
 health_data A data frame containing the extracted health data

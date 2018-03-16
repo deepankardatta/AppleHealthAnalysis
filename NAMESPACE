@@ -2,6 +2,7 @@
 
 export(ah_convert_xml_to_xlsx)
 export(ah_data_select)
+export(ah_export_xlsx)
 export(ah_import_xml)
 export(ah_shiny)
 import(dplyr)

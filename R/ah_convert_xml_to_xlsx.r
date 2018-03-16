@@ -2,16 +2,17 @@
 #'
 #' @description Converts Apple Health data from XML to XLSX format in one step.
 #' @description You can easily do this manually but wrote it to save time for people.
+#' @description This imports parameters from two other functions. This function does nothing with the health_data parameter though.
 #'
 #' @author Deepankar Datta <deepankardatta@nhs.net>
 #'
 #' @import openxlsx
 #'
-#' @param export_filename A name for saving the file, written in inverted commas
-#'
 #' @inheritParams ah_import_xml
+#' @inheritParams ah_export_xslx
 #'
 #' @include ah_import_xml.r
+#' @include ah_export_xslx.r
 #'
 #' @examples
 #' # Loads the data
@@ -19,12 +20,23 @@
 #'
 #' @export
 
-ah_convert_xml_to_xlsx <- function( filename , export_filename ) {
+ah_convert_xml_to_xlsx <- function( import_filename ,
+                                    export_filename ) {
+
+  if ( is.null(import_filename) )
+    stop("You must specify an import filename.")
 
   if ( is.null(export_filename) )
-    stop("You must specify an export filename!")
+    stop("You must specify an export filename.")
 
-  health_data <- ah_import_xml( filename )
+  # End of error checks
+
+
+
+
+  # What the function actually does
+
+  health_data <- ah_import_xml( import_filename )
   write.xlsx( health_data , export_filename )
 
   #END OF FUNCTION

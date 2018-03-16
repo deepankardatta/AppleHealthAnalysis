@@ -15,6 +15,7 @@ RoxygenNote: 6.0.1
 Imports: dplyr, lubridate, openxlsx, purrr, xml2, ggplot2, shiny
 Suggests: rmarkdown, testthat
 Collate: 
+    'ah_export_xslx.r'
     'ah_import_xml.r'
     'ah_convert_xml_to_xlsx.r'
     'ah_data_select.r'
