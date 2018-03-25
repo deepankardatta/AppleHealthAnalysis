@@ -7,6 +7,7 @@
 #' @import xml2
 #' @import purrr
 #' @import lubridate
+#' @importFrom gdata humanReadable
 #'
 #' @param import_filename The name of a XML file containing exported Apple Health data, written in inverted commas
 #'
@@ -29,6 +30,17 @@ ah_import_xml <- function( import_filename ) {
 
   if ( is.null(import_filename) )
     stop("You must specify an input filename.")
+
+  # Get file size data and estimates time
+  file_info <- file.info("unused/export.xml")
+  print( paste0( "File size: " , gdata::humanReadable(file_info$size) ) )
+  print( paste0( "Estimated import time at 5MiB/s: " ,
+                 file_info$size / (5*(1024)^2 ) ,
+                 " seconds") )
+
+  # Start timer
+  start_time <- Sys.time()
+  print( paste0( "Import started at: " , start_time ) )
 
   # Load exported apple health XML file
   xml_health_data <- read_xml( import_filename )
@@ -71,6 +83,15 @@ ah_import_xml <- function( import_filename ) {
   health_data$date       <- health_data$endDate %>% as_date()
   health_data$hour       <- health_data$endDate %>% hour() %>% as.factor()
   health_data$minutes    <- health_data$endDate %>% minute() %>% as.factor()
+
+  # Stop timer and calculate running times
+  end_time <- Sys.time()
+  print( paste0( "Import finished at: " , end_time ) )
+  running_time <- difftime( end_time , start_time , units = "secs" )
+  print( paste0( "Time for import: " , running_time , " seconds" ) )
+  print( paste0( "File size/running time: " ,
+                 gdata::humanReadable(file_info$size/as.double(running_time) ) ,
+                 " per second") )
 
   return( health_data )
 
