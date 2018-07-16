@@ -2,6 +2,7 @@
 
 export(ah_convert_xml_to_xlsx)
 export(ah_data_select)
+export(ah_data_summarise)
 export(ah_export_xlsx)
 export(ah_import_xml)
 export(ah_shiny)
@@ -12,3 +13,4 @@ import(openxlsx)
 import(purrr)
 import(shiny)
 import(xml2)
+importFrom(gdata,humanReadable)
