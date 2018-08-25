@@ -32,15 +32,15 @@ ah_import_xml <- function( import_filename ) {
     stop("You must specify an input filename.")
 
   # Get file size data and estimates time
-  file_info <- file.info("unused/export.xml")
-  print( paste0( "File size: " , gdata::humanReadable(file_info$size) ) )
-  print( paste0( "Estimated import time at 5MiB/s: " ,
-                 file_info$size / (5*(1024)^2 ) ,
+  file_info <- file.info(import_filename)
+  message( paste0( "File size: " , gdata::humanReadable(file_info$size) ) )
+  message( paste0( "Estimated import time at 5MiB/s: " ,
+                 round(file_info$size / (5*(1024)^2 )) ,
                  " seconds") )
 
   # Start timer
   start_time <- Sys.time()
-  print( paste0( "Import started at: " , start_time ) )
+  message( paste0( "Import started at: " , start_time ) )
 
   # Load exported apple health XML file
   xml_health_data <- read_xml( import_filename )
@@ -58,7 +58,7 @@ ah_import_xml <- function( import_filename ) {
 
   # Subset the data to get rid of the columns we don't need
   # We take endDate, but could easily take startDate
-  health_data <- health_data[ c( "type" , "value" , "unit" , "endDate"  ) ]
+  health_data <- health_data[ c( "type" , "sourceName" , "value" , "unit" , "endDate"  ) ]
 
   # Make the 'value' variable numeric
   # (Explore why I have written the function this way later)
@@ -70,6 +70,9 @@ ah_import_xml <- function( import_filename ) {
 
   # Make the type identifier to a factor - this makes it easier for me down the line to sort it
   health_data$type       <- health_data$type %>% as.factor()
+
+  # Clean up source names (some seem to contain special characters) and make factor
+  health_data$sourceName <- gsub("[^A-Za-z0-9 ]", "", health_data$sourceName, perl = TRUE) %>% as.factor
 
   # Use lubridate package to format the dates
   health_data$endDate    <- health_data$endDate %>% ymd_hms()
@@ -86,10 +89,10 @@ ah_import_xml <- function( import_filename ) {
 
   # Stop timer and calculate running times
   end_time <- Sys.time()
-  print( paste0( "Import finished at: " , end_time ) )
+  message( paste0( "Import finished at: " , end_time ) )
   running_time <- difftime( end_time , start_time , units = "secs" )
-  print( paste0( "Time for import: " , running_time , " seconds" ) )
-  print( paste0( "File size/running time: " ,
+  message( paste0( "Time for import: " , round(running_time) , " seconds" ) )
+  message( paste0( "File size/running time: " ,
                  gdata::humanReadable(file_info$size/as.double(running_time) ) ,
                  " per second") )
 
