@@ -96,7 +96,8 @@ ah_import_xml <- function( import_filename ) {
                  gdata::humanReadable(file_info$size/as.double(running_time) ) ,
                  " per second") )
 
-  return( health_data )
+  # Return distinct rows - for some reason, blood pressure data seems duplicated
+  return( health_data %>% distinct() )
 
   # END OF FUNCTION
 
