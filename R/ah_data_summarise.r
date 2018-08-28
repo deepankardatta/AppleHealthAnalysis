@@ -36,35 +36,33 @@ ah_data_summarise <- function( health_data , type_filter = NULL , summary_period
   if ( is.null(type_filter) )
     stop("You need to select one filter for this function to be useful.")
 
-  if ( summary_period != "hour" )
+  if ( !summary_period %in% c("hour", "day") )
     stop("You must specify a valid period of time to summarise by.")
 
   # End of error checks
 
 
 
-
   # Start of summarising functions
 
-  # Summarises which hours one has exerised (by a TRUE flag)
-  if( type_filter == "AppleExerciseTime" &&  summary_period == "hour" ){
+  # Summarises per hour
+  if( summary_period == "hour" ){
 
     summary_data <- health_data %>%
-      dplyr::filter( .data$type == "AppleExerciseTime" ) %>%
-      dplyr::group_by( .data$date , .data$hour) %>%
-      dplyr::summarise( ExerciseTime = all() )
+      dplyr::filter( .data$type == type_filter ) %>%
+      dplyr::group_by( .data$date , .data$hour , .data$sourceName) %>%
+      dplyr::summarise( value = sum(.data$value) )
 
   }
 
 
-  # Summarises the amount of exercise time per day
-  if( type_filter == "AppleExerciseTime" &&  summary_period == "day" ){
+  # Summarises per day
+  if( summary_period == "day" ){
 
     summary_data <- health_data %>%
-      dplyr::filter( .data$type == "AppleExerciseTime" ) %>%
-      dplyr::group_by( .data$date , .data$hour) %>%
-      dplyr::summarise( ExerciseTime = all() ) %>%
-      dplyr::summarise( MoreTime = dplyr::n() )
+      dplyr::filter( .data$type == type_filter ) %>%
+      dplyr::group_by( .data$date , .data$sourceName) %>%
+      dplyr::summarise( value = sum(.data$value) )
 
   }
 
