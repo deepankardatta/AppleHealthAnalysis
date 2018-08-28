@@ -52,8 +52,8 @@ ah_shiny(health_data)
 
 I had a look at a few things to help make this package
 
-1 - http://www.ryanpraski.com/apple-health-data-how-to-export-analyze-visualize-guide/#4
-2 - https://gist.github.com/ryanpraski/ba9baee2583cfb1af88ca4ec62311a3d
-3 - http://rpubs.com/Ranthony__/visualizing-iphone-health-app-data-in-R
-4 - http://www.tdda.info/in-defence-of-xml-exporting-and-analysing-apple-health-data
+1. http://www.ryanpraski.com/apple-health-data-how-to-export-analyze-visualize-guide/#4
+2. https://gist.github.com/ryanpraski/ba9baee2583cfb1af88ca4ec62311a3d
+3. http://rpubs.com/Ranthony__/visualizing-iphone-health-app-data-in-R
+4. http://www.tdda.info/in-defence-of-xml-exporting-and-analysing-apple-health-data
 
