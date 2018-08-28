@@ -19,8 +19,7 @@ ah_shiny <- function(health_data) {
   # Makes a list of the type factors, aka the health data variables measured
   ah_type_list <- levels(health_data$type)
 
-  requireNamespace(shiny)
-  .data$shinyApp(
+  shiny::shinyApp(
     ui = shiny::fluidPage(
       shiny::titlePanel("Apple Health Analysis Shiny Dashboard"),
 
