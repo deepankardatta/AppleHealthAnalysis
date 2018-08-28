@@ -4,10 +4,8 @@
 #'
 #' @author Deepankar Datta <deepankardatta@nhs.net>
 #'
-#' @import xml2
-#' @import purrr
-#' @import lubridate
 #' @importFrom gdata humanReadable
+#' @importFrom magrittr "%>%"
 #'
 #' @param import_filename The name of a XML file containing exported Apple Health data, written in inverted commas
 #'
@@ -43,18 +41,20 @@ ah_import_xml <- function( import_filename ) {
   message( paste0( "Import started at: " , start_time ) )
 
   # Load exported apple health XML file
-  xml_health_data <- read_xml( import_filename )
+  xml_health_data <- xml2::read_xml( import_filename )
 
   # Extracts the health records, selects the 'Record' elements
   # And then transforms into a data frame using the 'purrr' library
-  health_data <- xml_find_all( xml_health_data , "//Record") %>% map(xml_attrs) %>% map_df(as.list)
+  health_data <- xml2::xml_find_all( xml_health_data , "//Record") %>%
+    purrr::map(xml2::xml_attrs) %>%
+    purrr::map_df(as.list)
   # Does the same, but for the one element which contains the personal data
   # Currently not exported back out, but kept in for future use
   # personal_data <- xml_find_all( xml_health_data , "//Me") %>% xml_attrs()
 
   # Ways that I tried and didn't work
-  # xml_find_all( xml_health_data , "//Record") # this will just give the raw XML
-  # xml_find_all( xml_health_data , "//Record") %>% xml_attrs() # this will do it as a list
+  # xml2::xml_find_all( xml_health_data , "//Record") # this will just give the raw XML
+  # xml2::xml_find_all( xml_health_data , "//Record") %>% xml2::xml_attrs() # this will do it as a list
 
   # Subset the data to get rid of the columns we don't need
   # We take endDate, but could easily take startDate
@@ -75,17 +75,17 @@ ah_import_xml <- function( import_filename ) {
   health_data$sourceName <- gsub("[^A-Za-z0-9 ]", "", health_data$sourceName, perl = TRUE) %>% as.factor
 
   # Use lubridate package to format the dates
-  health_data$endDate    <- health_data$endDate %>% ymd_hms()
+  health_data$endDate    <- health_data$endDate %>% lubridate::ymd_hms()
 
   # add in columns for dates and times
-  health_data$year       <- health_data$endDate %>% year() %>% as.factor()
-  health_data$month      <- health_data$endDate %>% month() %>% as.factor()
-  health_data$month_name <- health_data$endDate %>% month(label = TRUE, abbr = FALSE ) %>% as.factor()
-  health_data$day        <- health_data$endDate %>% mday() %>% as.factor()
-  health_data$day_name   <- health_data$endDate %>% wday( label=TRUE, abbr=FALSE ) %>% as.factor()
-  health_data$date       <- health_data$endDate %>% as_date()
-  health_data$hour       <- health_data$endDate %>% hour() %>% as.factor()
-  health_data$minutes    <- health_data$endDate %>% minute() %>% as.factor()
+  health_data$year       <- health_data$endDate %>% lubridate::year() %>% as.factor()
+  health_data$month      <- health_data$endDate %>% lubridate::month() %>% as.factor()
+  health_data$month_name <- health_data$endDate %>% lubridate::month(label = TRUE, abbr = FALSE ) %>% as.factor()
+  health_data$day        <- health_data$endDate %>% lubridate::mday() %>% as.factor()
+  health_data$day_name   <- health_data$endDate %>% lubridate::wday( label=TRUE, abbr=FALSE ) %>% as.factor()
+  health_data$date       <- health_data$endDate %>% lubridate::as_date()
+  health_data$hour       <- health_data$endDate %>% lubridate::hour() %>% as.factor()
+  health_data$minutes    <- health_data$endDate %>% lubridate::minute() %>% as.factor()
 
   # Stop timer and calculate running times
   end_time <- Sys.time()
@@ -97,7 +97,7 @@ ah_import_xml <- function( import_filename ) {
                  " per second") )
 
   # Return distinct rows - for some reason, blood pressure data seems duplicated
-  return( health_data %>% distinct() )
+  return( health_data %>% dplyr::distinct() )
 
   # END OF FUNCTION
 

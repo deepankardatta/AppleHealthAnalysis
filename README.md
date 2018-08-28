@@ -28,13 +28,15 @@ So the main memory requirements are on XML extraction. I think dplyr's piping sy
 
 Download the GitHub repository and open the R Studio project. Then do the following:
 
-* Get some Apple Health data an put the export.xml file into your directory
-* library(devtools)
-* install_github("deepankardatta/AppleHealthAnalysis")
-* library(AppleHealthAnalysis)
-* health_data <- ah_import_xml("export.xml")
-* ah_shiny(health_data)
-* Explore
+```
+# Get some Apple Health data an put the export.xml file into your directory
+library(devtools)
+install_github("deepankardatta/AppleHealthAnalysis")
+library(AppleHealthAnalysis)
+health_data <- ah_import_xml("export.xml")
+ah_shiny(health_data)
+# Explore
+```
 
 ## Future developments
 

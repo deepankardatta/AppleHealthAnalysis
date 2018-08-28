@@ -7,7 +7,9 @@
 ah_convert_xml_to_xlsx(import_filename, export_filename)
 }
 \arguments{
-\item{import_filename}{The name of a XML file containing exported Apple Health data, written in inverted commas}
+\item{import_filename}{The name of a XML file containing exported Apple Health data}
+
+\item{export_filename}{The name of the XLSX output filename}
 }
 \description{
 Converts Apple Health data from XML to XLSX format in one step.

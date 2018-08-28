@@ -6,14 +6,26 @@ Depends: R (>= 3.3.0)
 Authors@R: person("Deepankar", "Datta", email = "deepankardatta@nhs.net",
                   role = c("aut", "cre"))
 Description: Package to import Apple Health XML data into R for further analysis.
-License: GPL-3
+License: file LICENSE
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/deepankardatta/AppleHealthAnalysis/
 BugReports: https://github.com/deepankardatta/AppleHealthAnalysis/issues
 RoxygenNote: 6.0.1
-Imports: dplyr, lubridate, openxlsx, purrr, xml2, ggplot2, shiny
-Suggests: rmarkdown, testthat
+Imports: 
+		rlang,
+		gdata,
+		magrittr,
+		dplyr, 
+		lubridate, 
+		openxlsx, 
+		purrr, 
+		xml2, 
+		ggplot2, 
+		shiny
+Suggests: 
+		rmarkdown, 
+		testthat
 Collate: 
     'ah_export_xslx.r'
     'ah_import_xml.r'
