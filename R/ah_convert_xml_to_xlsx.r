@@ -6,13 +6,14 @@
 #'
 #' @author Deepankar Datta <deepankardatta@nhs.net>
 #'
-#' @import openxlsx
-#'
 #' @inheritParams ah_import_xml
 #' @inheritParams ah_export_xslx
 #'
 #' @include ah_import_xml.r
 #' @include ah_export_xslx.r
+#'
+#' @param import_filename The name of a XML file containing exported Apple Health data
+#' @param export_filename The name of the XLSX output filename
 #'
 #' @examples
 #' # Loads the data
@@ -37,7 +38,7 @@ ah_convert_xml_to_xlsx <- function( import_filename ,
   # What the function actually does
 
   health_data <- ah_import_xml( import_filename )
-  write.xlsx( health_data , export_filename )
+  openxlsx::write.xlsx( health_data , export_filename )
 
   #END OF FUNCTION
 

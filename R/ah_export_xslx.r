@@ -5,8 +5,6 @@
 #'
 #' @author Deepankar Datta <deepankardatta@nhs.net>
 #'
-#' @import openxlsx
-#'
 #' @param health_data A data frame containing the data needed to be exported
 #' @param export_filename A name for saving the file, written in inverted commas
 #'
@@ -34,7 +32,7 @@ ah_export_xlsx <- function( health_data ,
 
   # What the function actually does
 
-  write.xlsx( health_data , export_filename )
+  openxlsx::write.xlsx( health_data , export_filename )
 
   #END OF FUNCTION
 

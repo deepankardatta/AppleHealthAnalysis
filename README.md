@@ -16,11 +16,11 @@ For modern computers there should not be too much of a problem in using the pack
 
 As I was developing the package, I noted the following memory use when stepping through each step in the XML import (and this is with a fairly small Apple Health data set!):
 
-* c. 14MB Apple Health exported ZIP file
-* 28.2MB unzipped XML file (plus a separate CDA xml file: not sure what this does)
-* 46MB XML extract containing the XML "Records" elements
-* 109.3MB R list of the "Records" elements (the ones we are interested in)
-* 3.2MB - the resulting exported XSLX file
+* 14 MB - Apple Health exported ZIP file
+* 28.2 MB - unzipped XML file (plus a separate CDA xml file: not sure what this does)
+* 46 MB - XML extract containing the XML "Records" elements
+* 109.3 MB - R list of the "Records" elements (the ones we are interested in)
+* 3.2 MB - the resulting exported XSLX file
 
 So the main memory requirements are on XML extraction. I think dplyr's piping system is the most efficient way of getting the data out of the XML file, but suggestions on how to improve resource requirements would be gratefully appreciated.
 
@@ -28,13 +28,15 @@ So the main memory requirements are on XML extraction. I think dplyr's piping sy
 
 Download the GitHub repository and open the R Studio project. Then do the following:
 
-* Get some Apple Health data an put the export.xml file into your directory
-* library(devtools)
-* install_github("deepankardatta/AppleHealthAnalysis")
-* library(AppleHealthAnalysis)
-* health_data <- ah_import_xml("export.xml")
-* ah_shiny(health_data)
-* Explore
+```
+# Get some Apple Health data an put the export.xml file into your directory
+library(devtools)
+install_github("deepankardatta/AppleHealthAnalysis")
+library(AppleHealthAnalysis)
+health_data <- ah_import_xml("export.xml")
+ah_shiny(health_data)
+# Explore
+```
 
 ## Future developments
 
@@ -50,8 +52,8 @@ Download the GitHub repository and open the R Studio project. Then do the follow
 
 I had a look at a few things to help make this package
 
-(1) http://www.ryanpraski.com/apple-health-data-how-to-export-analyze-visualize-guide/#4
-(2) https://gist.github.com/ryanpraski/ba9baee2583cfb1af88ca4ec62311a3d
-(3) http://rpubs.com/Ranthony__/visualizing-iphone-health-app-data-in-R
-(4) http://www.tdda.info/in-defence-of-xml-exporting-and-analysing-apple-health-data
+1. http://www.ryanpraski.com/apple-health-data-how-to-export-analyze-visualize-guide/#4
+2. https://gist.github.com/ryanpraski/ba9baee2583cfb1af88ca4ec62311a3d
+3. http://rpubs.com/Ranthony__/visualizing-iphone-health-app-data-in-R
+4. http://www.tdda.info/in-defence-of-xml-exporting-and-analysing-apple-health-data
 
